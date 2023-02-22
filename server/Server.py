@@ -5,7 +5,7 @@ from asyncio import get_event_loop
 
 PORT = 3000
 
-class Server():
+class WebSocketServer():
     def __init__(self):
         """Init the class variables
         Args
