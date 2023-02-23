@@ -24,20 +24,20 @@ class ClientAccess(WebSocketServer):
     async def __msg_handler__(self, websocket, path):
         """
         A handle function to websocket handles.
-        Login requests from Hades will create a new Client thread 
+        Login requests from client will create a new Client thread 
         with a queue as communication channel between threads.
 
         Args:
-            websocket: used to sent menssages to client (Hades)
+            websocket: used to sent menssages to client
         """
         self.__EventWriter.write_msg(CLASS_NAME+'.msg_handler: client is sending a request...')
         while True: 
             try:
                 data = await websocket.recv()
-                json_hades_msg = loads(data)
+                json_msg = loads(data)
 
-                request_type = json_hades_msg['e']
-                user = json_hades_msg['user']
+                request_type = json_msg['e']
+                user = json_msg['user']
 
                 if request_type == REQ_CLIENT_LOGIN:
                     if not(user in self.__clients):
