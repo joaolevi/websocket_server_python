@@ -4,33 +4,20 @@ import websockets
 from asyncio import create_task, Queue
 from json import loads
 
-from ..server import WebSocketServer
+from ..server.WebSocketServer import WebSocketServer
+from ..client.SocketClient import SocketClient
 
-CLASS_NAME = 'ClientAccess'
+CLASS_NAME = 'ProxyAccess'
 REQ_CLIENT_LOGIN = 1
 
-class ClientAccess(WebSocketServer):
+class ProxyAccess(WebSocketServer):
     def __init__(self, accessconfig, maindirectory):
-        """Initialize class and variables
-
-            Args:
-                accessconfig ([Dict]): [access config file content]
-                maindirectory ([String]): [main directory]
-        """
         super().__init__(accessconfig, maindirectory)
 
-        self.__clients          = {}
+        self.__clients = {}
 
     async def __msg_handler__(self, websocket, path):
-        """
-        A handle function to websocket handles.
-        Login requests from client will create a new Client thread 
-        with a queue as communication channel between threads.
-
-        Args:
-            websocket: used to sent menssages to client
-        """
-        self.__EventWriter.write_msg(CLASS_NAME+'.msg_handler: client is sending a request...')
+        print(CLASS_NAME+'.msg_handler: client is sending a request...')
         while True: 
             try:
                 data = await websocket.recv()
@@ -43,7 +30,7 @@ class ClientAccess(WebSocketServer):
                     if not(user in self.__clients):
                         out_queue = Queue()
 
-                        Client = Client(self.__accessconfig, self.__maindirectory, websocket, self.__EventWriter)
+                        Client = SocketClient(self.__accessconfig, self.__maindirectory, websocket, self.__EventWriter)
 
                         self.__clients[user] = {}
                         self.__clients[user]['task'] = create_task(Client.client_msg_handler(out_queue))
@@ -61,5 +48,4 @@ class ClientAccess(WebSocketServer):
                 print(CLASS_NAME+'.__msg_handler__: '+str(e))
 
     def start(self):
-        """Start logs"""
         print('Starting...')
