@@ -9,9 +9,10 @@ VERIFIER_SLEEP_TIMER = 10
 CLASS_NAME = 'SocketClient'
 
 class SocketClient():
-    def __init__(self, websocket):
+    def __init__(self, websocket, EventWriter):
         self.__consume_task = None
         self.__serverws     = websocket
+        self.__EventWriter  = EventWriter
 
     async def consume(self):
         await self.send_heartbeat()

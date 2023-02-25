@@ -1,9 +1,11 @@
 #!/usr/bin/env python
 
+"""Imports"""
 import websockets
 from asyncio import create_task, Queue
 from json import loads
 
+"""Source imports"""
 from ..server.WebSocketServer import WebSocketServer
 from ..client.SocketClient import SocketClient
 
@@ -11,9 +13,10 @@ CLASS_NAME = 'ProxyAccess'
 REQ_CLIENT_LOGIN = 1
 
 class ProxyAccess(WebSocketServer):
-    def __init__(self, accessconfig, maindirectory):
-        super().__init__(accessconfig, maindirectory)
+    def __init__(self, maindirectory, EventWriter):
 
+        super().__init__(maindirectory)
+        self.__EventWriter = EventWriter
         self.__clients = {}
 
     async def __msg_handler__(self, websocket, path):
