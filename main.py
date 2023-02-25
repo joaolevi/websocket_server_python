@@ -24,7 +24,6 @@ def start_log(maindirectory):
 if __name__ == "__main__":
     maindirectory = get_main_directory()
     EventWriter = start_log(maindirectory)
-    EventWriter.warning(maindirectory)
     Access   = ProxyAccess(maindirectory, EventWriter)
     WsServer = WebSocketServer(maindirectory)
     WsServer.__startServer__(Access.__msg_handler__)
