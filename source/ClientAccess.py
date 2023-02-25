@@ -24,7 +24,7 @@ class ClientAccess():
 
     async def start_server_connection(self):
         async with connect('ws://'+HOST) as self.ServerConnection:
-            jsonMsg = '{"e":"1", "user":"joaolevi"}'
+            jsonMsg = '{"e":"1", "user":"joaolevi", "msg":"Primeira mensagem"}'
             await self.ServerConnection.send(jsonMsg)
             response = await self.ServerConnection.recv()
             self.EventWriter.debug(response)
