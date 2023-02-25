@@ -1,10 +1,10 @@
 CLASS_NAME = 'ClientAccess'
 
 from websockets import connect
-from os import path, makedirs
+from os import path
 from inspect import getfile, currentframe
 from logging import basicConfig, getLogger, DEBUG
-from asyncio import sleep, create_task, get_event_loop
+from asyncio import get_event_loop
 
 HOST = '127.0.0.1:3000'
 

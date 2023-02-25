@@ -1,8 +1,10 @@
+"""Python imports"""
 from websockets import ConnectionClosed
 from json import loads
 
-from .SocketServer.WebSocketServer import WebSocketServer
-
+"""Source imports"""
+from SocketServer.WebSocketServer import WebSocketServer
+from Utils.Utils import *
 
 CLASS_NAME = 'ThirdPartServer'
 
@@ -34,3 +36,9 @@ class ThirdPartServer(WebSocketServer):
                 break
             except Exception as e:
                 print(CLASS_NAME+'.__msg_handler__: '+str(e))
+
+if __name__=='__main__':
+    maindirectory = get_main_directory()
+    ThPartServer = ThirdPartServer(maindirectory)
+    ThPartServer.__EventWriter = start_log(CLASS_NAME)
+    ThPartServer.__startServer__(ThPartServer.__msg_handler__, 3001)
