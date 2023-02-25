@@ -4,8 +4,8 @@ from inspect import getfile, currentframe
 from logging import basicConfig, getLogger, DEBUG
 
 """Source Imports"""
-from source.server.WebSocketServer import WebSocketServer
-from source.proxy.ProxyAccess import ProxyAccess
+from source.SocketServer.WebSocketServer import WebSocketServer
+from source.Proxy.ProxyAccess import ProxyAccess
 
 def get_main_directory():
     return path.dirname(path.abspath(getfile(currentframe())))

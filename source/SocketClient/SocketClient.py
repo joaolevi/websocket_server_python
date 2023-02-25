@@ -14,29 +14,13 @@ class SocketClient():
         self.__serverws     = websocket
         self.__EventWriter  = EventWriter
 
-    async def consume(self):
-        await self.send_heartbeat()
-
-        msg_buf = bytearray()
-        while True:
-            try:
-                msg_buf = await wait_for(self.brokerws.recv(), timeout=TIME_OUT_WAITING_MSG)
-
-            except TimeoutError:
-                if self.brokerws.open:
-                    await self.send_heartbeat()
-                else:
-                    return
-            except Exception as e:
-                print(CLASS_NAME+".consume: "+str(e))
-
-
     async def client_msg_handler(self, input_queue):
         while True:
             data = await input_queue.get()
+            self.__EventWriter.debug(CLASS_NAME+'.client_msg_handler: Msg='+data)
             try:
                 msg = loads(data)
-                print(CLASS_NAME+'.client_msg_handler: msg from client: '+msg)
+                self.__EventWriter.debug(CLASS_NAME+'.client_msg_handler: msg from client: '+msg)
 
             except Exception as e:
                 self.__EventWriter.write_error(str(e))
