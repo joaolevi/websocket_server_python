@@ -2,3 +2,4 @@ pyinstaller
 websockets
 sqlalchemy
 sqlalchemy_utils
+psycopg2
