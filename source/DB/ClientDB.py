@@ -18,12 +18,36 @@ class ClientDB(Base):
 
 # Base.metadata.create_all(engine)
 
-client1 = ClientDB(name='John Rich', age=26, cpf='999.000.111-89')
-client2 = ClientDB(name='Mariana Raujo', age=28, cpf='222.030.113-52')
-client3 = ClientDB(name='Piter Parker', age=25, cpf='311.232.456-64')
+# client1 = ClientDB(name='John Rich', age=26, cpf='999.000.111-89')
+# client2 = ClientDB(name='Mariana Raujo', age=28, cpf='222.030.113-52')
+# client3 = ClientDB(name='Piter Parker', age=25, cpf='311.232.456-64')
 
-session.add(client1)
+# session.add(client1)
 
-session.add_all([client2, client3])
+# session.add_all([client2, client3])
 
-session.commit()
+# session.commit()
+
+###############
+## Get all data
+
+# clients = session.query(ClientDB)
+
+# for client in clients:
+#     print(client.name, client.age, client.cpf)
+
+####################
+## Get data in order
+
+# clients = session.query(ClientDB).order_by(ClientDB.name)
+
+# for client in clients:
+#     print(client.name)
+
+########################
+## Get data by filtering
+
+# clients = session.query(ClientDB).filter(ClientDB.name=="John Rich")
+
+# for client in clients:
+#     print(client.name, client.age)
