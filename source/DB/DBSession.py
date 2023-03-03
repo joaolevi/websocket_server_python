@@ -1,5 +1,5 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import sessionmaker
+from sqlalchemy.orm import sessionmaker, declarative_base
 
 class DBSession():
     def __init__(self, login, password, ip, port):
@@ -13,6 +13,9 @@ class DBSession():
         engine = create_engine('postgresql://'+self.__login+':'+self.__password+'@'+self.__ip+':'+self.__port+'/postgres')
         Session = sessionmaker(bind=engine)
         self.session = Session()
+
+        Base = declarative_base()
+        Base.metadata.create_all(engine)
 
     def save_to_db(self, data):
         if (self.session.connection()):
