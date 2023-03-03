@@ -6,6 +6,8 @@ from inspect import getfile, currentframe
 from logging import basicConfig, getLogger, DEBUG
 from asyncio import get_event_loop
 
+from DB.DBDataTypes import DatabaseTypes
+
 HOST = '127.0.0.1:3000'
 
 class ClientAccess():
@@ -24,7 +26,7 @@ class ClientAccess():
 
     async def start_server_connection(self):
         async with connect('ws://'+HOST) as self.ServerConnection:
-            jsonMsg = '{"e":"1", "user":"joaolevi", "msg":"Primeira mensagem"}'
+            jsonMsg = '{"e":1,"db_type":1,"name":"Dom Pedro","age":28,"cpf":"123.123.123-23"}'
             await self.ServerConnection.send(jsonMsg)
             response = await self.ServerConnection.recv()
             self.EventWriter.debug(response)

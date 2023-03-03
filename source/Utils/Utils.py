@@ -17,11 +17,10 @@ def read_config_db_file(maindirectory):
                   'port'    : '5432'}
     return config
 
-def start_log(class_name):
-    maindirectory = get_main_directory()
-    directory = maindirectory + '/log'
-    if (not path.exists(directory)):
-        makedirs(directory)
+def start_log(class_name, maindirectory):
+    # directory = maindirectory + '/log'
+    # if (not path.exists(directory)):
+    #     makedirs(directory)
 
     basicConfig(filename="../log/Event"+ class_name + ".log", format='%(asctime)s %(message)s', filemode='w')
     EventWriter = getLogger()

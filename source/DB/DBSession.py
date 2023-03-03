@@ -15,7 +15,7 @@ class DBSession():
         self.session = Session()
 
         Base = declarative_base()
-        Base.metadata.create_all(engine)
+        # Base.metadata.create_all(engine)
 
     def save_to_db(self, data):
         if (self.session.connection()):

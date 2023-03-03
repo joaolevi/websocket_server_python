@@ -15,7 +15,6 @@ class ClientDB(Base):
     name    = Column(String(50))
     age     = Column(Integer)
     cpf     = Column(String(50))
-    db_type = Column(Integer)
 
 class Student(Base):
     __tablename__ = 'students'
@@ -23,7 +22,6 @@ class Student(Base):
     id      = Column(Integer, primary_key=True)
     name    = Column(String(50))
     msg     = Column(String(50))
-    db_type = Column(Integer)
 
 
 # Base.metadata.create_all(engine)

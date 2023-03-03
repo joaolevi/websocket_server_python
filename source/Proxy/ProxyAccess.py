@@ -27,23 +27,23 @@ class ProxyAccess(WebSocketServer):
                 json_msg = loads(data)
 
                 request_type = int(json_msg['e'])
-                user = json_msg['user']
+                user_id = 1
 
-                self.__EventWriter.debug(CLASS_NAME+'.msg_handler: Req='+str(request_type)+'; User='+user)
+                # self.__EventWriter.debug(CLASS_NAME+'.msg_handler: Req='+str(request_type)+'; user_id='+user_id)
 
                 if request_type == REQ_CLIENT_LOGIN:
-                    if not(user in self.__clients):
+                    if not(user_id in self.__clients):
                         out_queue = Queue()
 
                         Client = SocketClient(websocket, self.__EventWriter)
-                        self.__clients[user] = {}
-                        self.__clients[user]['task'] = create_task(Client.client_msg_handler(out_queue))
-                        self.__clients[user]['queue'] = out_queue
-                        await self.__clients[user]['queue'].put(data)
+                        self.__clients[user_id] = {}
+                        self.__clients[user_id]['task'] = create_task(Client.client_msg_handler(out_queue))
+                        self.__clients[user_id]['queue'] = out_queue
+                        await self.__clients[user_id]['queue'].put(data)
                     else:
                         continue
                 else:
-                    await self.__clients[user]['queue'].put(data)
+                    await self.__clients[user_id]['queue'].put(data)
 
             except websockets.ConnectionClosed:
                 print(CLASS_NAME+' : '+'Terminated')
