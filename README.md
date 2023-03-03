@@ -29,6 +29,6 @@ After running the source/DB/ClientDB.py, we can see that the table was created u
 
 ## Client Window
 
-This window was created using the Tkinter library on Python. The main idea is just to have a way where we can write some informations and send to the database using our proxy system. 
+This window was created using the Tkinter library on Python. The main idea is just to have a way where we can write some pieces of information and send to the database using our proxy system. 
 
 ![image](https://user-images.githubusercontent.com/56874672/222796220-c5c474e1-58c8-4867-b41e-698c27ede86d.png)
