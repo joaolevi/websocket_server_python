@@ -4,6 +4,7 @@ from json import loads
 
 """Source imports"""
 from SocketServer.WebSocketServer import WebSocketServer
+from DB.DBSession import DBSession
 from Utils.Utils import *
 
 CLASS_NAME = 'ThirdPartServer'
@@ -14,6 +15,7 @@ class ThirdPartServer(WebSocketServer):
         super().__init__(maindirectory)
         self.__EventWriter = None
         self.__clients     = {}
+        self.__db          = None
 
     async def __msg_handler__(self, websocket, path):
         while True: 
@@ -37,8 +39,19 @@ class ThirdPartServer(WebSocketServer):
             except Exception as e:
                 print(CLASS_NAME+'.__msg_handler__: '+str(e))
 
+    def connect_db_session(self, maindirectory):
+        config      = read_config_db_file(maindirectory+'../..')
+        login       = config['login']
+        password    = config['password']
+        ip          = config['ip']
+        port        = config['port']
+
+        self.__db   = DBSession(login, password, ip, port)
+        self.__db.start_db_session()
+
 if __name__=='__main__':
     maindirectory = get_main_directory()
     ThPartServer = ThirdPartServer(maindirectory)
     ThPartServer.__EventWriter = start_log(CLASS_NAME)
+    ThPartServer.connect_db_session(maindirectory)
     ThPartServer.__startServer__(ThPartServer.__msg_handler__, 3001)

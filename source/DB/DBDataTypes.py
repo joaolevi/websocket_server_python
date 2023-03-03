@@ -1,20 +1,30 @@
-from sqlalchemy import create_engine, Column, Integer, String
-from sqlalchemy.orm import sessionmaker, declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import declarative_base
+from enum import Enum
 
-engine = create_engine('postgresql://postgres:1234@localhost:5432/postgres', echo=False)
-
-Session = sessionmaker(bind=engine)
-session = Session()
+class DatabaseTypes(Enum):
+    CLIENT  = 1
+    STUDENT = 2
 
 Base = declarative_base()
 
 class ClientDB(Base):
     __tablename__ = 'client_db'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(50))
-    age = Column(Integer)
-    cpf = Column(String(50))
+    id      = Column(Integer, primary_key=True)
+    name    = Column(String(50))
+    age     = Column(Integer)
+    cpf     = Column(String(50))
+    db_type = Column(Integer)
+
+class Student(Base):
+    __tablename__ = 'students'
+
+    id      = Column(Integer, primary_key=True)
+    name    = Column(String(50))
+    msg     = Column(String(50))
+    db_type = Column(Integer)
+
 
 # Base.metadata.create_all(engine)
 

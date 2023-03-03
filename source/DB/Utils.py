@@ -1,6 +1,6 @@
 from os import path, makedirs
-from inspect import getfile, currentframe
 from logging import basicConfig, getLogger, DEBUG
+from inspect import getfile, currentframe
 from yaml import safe_load
 
 def get_main_directory():
