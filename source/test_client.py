@@ -30,10 +30,14 @@ class ClientAccess():
             await self.ServerConnection.send(jsonMsg)
             response = await self.ServerConnection.recv()
             self.EventWriter.debug(response)
+
+    async def start(self):
+        self.get_main_directory()
+        self.start_log()
+        get_event_loop().run_until_complete(self.start_server_connection)
  
-if __name__ == "__main__":
-    Client = ClientAccess()
-    Client.get_main_directory()
-    Client.start_log()
-    get_event_loop().run_until_complete(Client.start_server_connection())
-    
+# if __name__ == "__main__":
+#     Client = ClientAccess()
+#     Client.get_main_directory()
+#     Client.start_log()
+#     get_event_loop().run_until_complete(Client.start_server_connection())
