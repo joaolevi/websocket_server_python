@@ -32,3 +32,12 @@ After running the source/DB/ClientDB.py, we can see that the table was created u
 This window was created using the Tkinter library on Python. The main idea is just to have a way where we can write some pieces of information and send to the database using our proxy system. 
 
 ![image](https://user-images.githubusercontent.com/56874672/222796220-c5c474e1-58c8-4867-b41e-698c27ede86d.png)
+
+## Saving in database - SQLAlchemy + PostgreSQL
+
+PostgreSQL was installed at WSL. So, all data will be saved there. 
+
+To see the data saved in the table 'client_db', we need open the psql shell first `sudo -u postgres psql` and then `TABLE client_db`:
+
+![image](https://user-images.githubusercontent.com/56874672/222935730-c7720447-df20-4a42-af23-224f9e86e601.png)
+
